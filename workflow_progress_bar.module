@@ -1,0 +1,106 @@
+<?php
+
+/**
+ * Implements hook_block_info().
+ */
+function workflow_progress_bar_block_info() {
+    $blocks = array();
+    $blocks['progress'] = array(
+        'info' => t('Workflow Progress Bar'),
+    );
+
+    return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function workflow_progress_bar_block_view($delta = '') {
+    $block = array();
+
+    if ($delta == 'progress') {
+        $nid = "0";
+
+        if (arg(0) == 'node' && is_numeric(arg(1))) {
+            $nid = arg(1);
+            $node = node_load($nid);
+
+            if ($node->type == '[your_node_type]') {
+                $status = get_bar_status(workflow_node_current_state($node));
+                $block['content'] = theme(
+                        'workflow_progress_bar',
+                        array(
+                            'status' => $status
+                        )
+                );
+            }
+        }
+    }
+
+    return $block;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function workflow_progress_bar_theme() {
+    return array(
+        'workflow_progress_bar' => array(
+            'template' => 'progress-bar',
+            'path' => drupal_get_path('module', 'workflow_progress_bar') . '/templates',
+            'variables' => array(
+                "status" => array(
+                    "percentage" => 0,
+                    "active_nodes" => 0
+                )
+            )
+        )
+    );
+}
+
+// get percentage and active nodes
+function get_bar_status($status) {
+    switch ($status) {
+        case 1: {
+                $percentage = 0;
+                $active_nodes = 1;
+                break;
+            }
+        case 2: {
+                $percentage = 25;
+                $active_nodes = 2;
+                break;
+            }
+        case 3: {
+                $percentage = 0;
+                $active_nodes = 1;
+                break;
+            }
+        case 4: {
+                $percentage = 50;
+                $active_nodes = 3;
+                break;
+            }
+        case 5: {
+                $percentage = 75;
+                $active_nodes = 4;
+                break;
+            }
+        case 6: {
+                $percentage = 100;
+                $active_nodes = 5;
+                break;
+            }
+        default : {
+                $percentage = 0;
+                $active_nodes = 0;
+            }
+    }
+
+    $bar_status = array(
+        "percentage" => $percentage,
+        "active_nodes" => $active_nodes
+    );
+
+    return $bar_status;
+}

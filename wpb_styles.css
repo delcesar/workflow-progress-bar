@@ -1,0 +1,77 @@
+/* progress bar for workflow */
+#workflow-progress{
+
+    margin: 5rem 0 4rem;
+    height: 5px;
+}
+
+#workflow-progress .activity{
+    border-radius:50%;
+    height: 12px;
+    margin-top: -4px;
+    position:absolute;
+    transform: translateX(-6px);
+    width: 12px;    
+    z-index:1; 
+}
+
+#workflow-progress .activity::before{
+
+    bottom: -20px;
+    color: #b5b5b5;
+    font-size: .85rem;
+    font-weight: 700;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+#workflow-progress .activity.bg-success{
+    background-color: #5cb85c;
+}
+
+#workflow-progress .activity.one{
+    left:0%;
+}
+
+#workflow-progress .activity.one::before{
+    content: "OFFICER";
+}
+
+#workflow-progress .activity.two{
+    left:25%;
+}
+
+#workflow-progress .activity.two::before{
+    content: "SUPERVISOR";
+}
+
+#workflow-progress .activity.three{
+    left:50%;
+}
+
+#workflow-progress .activity.three::before{
+    content: "MANAGER";
+}
+
+#workflow-progress .activity.four{
+    left:75%;
+}
+
+#workflow-progress .activity.four::before{
+    content: "MANAGER 2";
+}
+
+#workflow-progress .activity.five{
+    left:100%;
+}
+
+#workflow-progress .activity.five::before{
+    content: "APPROVED";
+}
+
+.no-color{
+    background-color:inherit;
+    box-shadow: inset 0 1px 0px rgba(0, 0, 0, 0.1);
+}

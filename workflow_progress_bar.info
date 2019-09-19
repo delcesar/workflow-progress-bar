@@ -1,0 +1,7 @@
+name = Workflow Progress Bar
+description = Shows a Progress Bar for a workflow
+package = Custom
+version = VERSION
+core = 7.x
+files[] = workflow_progress_bar.module
+stylesheets[all][] = wpb_styles.css
